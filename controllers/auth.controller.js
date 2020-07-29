@@ -7,9 +7,15 @@ const { validationResult }  =   require('express-validator');
 const jwt                   =   require('jsonwebtoken');
 //custom error handler to get useful error from database errors
 const { errorHandler }      =   require('../helpers/dbErrorHandling');
-const sendgrid              =   require('@sendgrid/mail');
+const nodemailer            =   require('nodemailer');
 
-sendgrid.setApiKey(process.env.MAIL_KEY);
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.GMAIL_USERNAME, // generated ethereal user
+        pass: process.env.GMAIL_PASSWORD, // generated ethereal password
+    },
+});
 
 exports.registerController = (req, res)=>{
     const { name, email, password } = req.body;
@@ -61,18 +67,17 @@ exports.registerController = (req, res)=>{
         };
 
         // console.log(emailData);
-
-        sendgrid.send(emailData).then(() => {
-            // console.log('email sent');
-            return res.json({
-                message: `Email has been sent to ${email}`
-            });
-        }).catch (error => {
-            // console.log(error.toString());
-            return res.status (400).json({
-                error:errorHandler(error)
-            });
-        });
+        transporter.sendMail(emailData, function (err){
+            if (err){
+                return res.status (400).json({
+                    error:errorHandler(err)
+                });
+            } else {
+                return res.json({
+                    message: `Email has been sent to ${email}`
+                });
+            }
+        }); 
     }
 };
 
