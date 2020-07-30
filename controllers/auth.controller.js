@@ -1,4 +1,5 @@
-const User                  =   require('../models/auth.model');
+// const User                  =   require('../models/auth.model');
+const User                  =   require('../models/user');
 const expressJWT            =   require('express-jwt');
 const _                     =   require('lodash');
 const { OAuth2Client }      =   require('google-auth-library');
@@ -101,8 +102,8 @@ exports.activationController = (req, res) =>{
                     email,
                     password
                 });
-    
-                user.save((err) => {
+
+                User.create(user, (err, createUser) =>{
                     if (err) {
                         console.log('Save error', errorHandler(err));
                         return res.status(401).json({
@@ -111,7 +112,7 @@ exports.activationController = (req, res) =>{
                     } else {
                         return res.json({
                             success: true,
-                            message: 'Signup success'
+                            message: `${createUser.name} is successfully activated`
                         });
                     }
                 });
