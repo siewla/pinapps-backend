@@ -13,10 +13,11 @@ cloudinary.config({
 });
 const websiteCaptureOptions = {
     width: 320,
-    height: 400
+    height: 400,
+    type: 'jpg'
 }
 
-let index = `${Math.random()}1.jpg` //ObjectId?
+
 screenshots.base64(captureURL, websiteCaptureOptions).then((result) => console.log(result)).catch(err => console.log(err)) //.then(
 //     (file) => {
 //         cloudinary.uploader.upload(file).catch(err => console.log(err));
