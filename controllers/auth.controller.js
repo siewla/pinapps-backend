@@ -1,11 +1,11 @@
 const User                  =   require('../models/user');
 const expressJWT            =   require('express-jwt');
-const _                     =   require('lodash');
 const { OAuth2Client }      =   require('google-auth-library');
 const fetch                 =   require('node-fetch');
 const { validationResult }  =   require('express-validator');
 const jwt                   =   require('jsonwebtoken');
 const nodemailer            =   require('nodemailer');
+const bcrypt                =   require('bcrypt');
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -116,6 +116,58 @@ exports.activationController = (req, res) =>{
     } else {
         return res.json({
             message: 'error happening please try again'
+        });
+    }
+};
+
+exports.loginController = (req, res) =>{
+    const { email, password } = req.body; 
+    console.log(password);
+    const errors = validationResult (req);
+    
+    if (!errors.isEmpty()){
+        const firstError = errors.array().map(error => error.msg)[0];
+        return res.status(422).json({
+            error: firstError
+        });
+    } else {
+        //check if user exist
+        User.findOne({
+            email
+        }).exec((err, user)=>{
+            if(err||!user){
+                return res.status(400).json({
+                    error: 'User doesn\'t exist, please sign up.'
+                });
+            } else {
+                if(!bcrypt.compareSync(req.body.password, user.hashed_password)){
+                    return res.status(400).json({
+                        error: 'Email and password do not match'
+                    });
+                }
+            }
+            
+            //generate token
+            const token = jwt.sign(
+                { _id:user._id }
+                , process.env.JWT_SECRET,
+                {
+                    expiresIn: '7d'
+                }
+            );
+
+            const { _id, name, email, role } = user;
+            
+            return res.json({
+                token,
+                user:{
+                    _id,
+                    name,
+                    email,
+                    role
+                }
+            });
+
         });
     }
 };
