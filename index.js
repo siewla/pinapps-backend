@@ -3,7 +3,6 @@ const express   =   require('express');
 const morgan    =   require('morgan');
 const app       =   express ();
 const cors      =   require('cors');
-const passport  =   require('passport');
 
 require('dotenv').config({
     path:'./config/config.env'

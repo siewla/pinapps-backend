@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 // user schema
-const userScheama = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
     {
         email: {
             type: String,
@@ -35,7 +35,7 @@ const userScheama = new mongoose.Schema(
 );
 
 // virtual
-userScheama
+userSchema
     .virtual('password')
     .set(function (password) {
         this._password = password;
@@ -47,7 +47,7 @@ userScheama
     });
 
 // methods
-userScheama.methods = {
+userSchema.methods = {
     authenticate: function (plainText) {
         return this.encryptPassword(plainText) === this.hashed_password;
     },
@@ -69,4 +69,4 @@ userScheama.methods = {
     }
 };
 
-module.exports = mongoose.model('User', userScheama);
+module.exports = mongoose.model('User', userSchema);

@@ -1,4 +1,3 @@
-// const User                  =   require('../models/auth.model');
 const User                  =   require('../models/user');
 const expressJWT            =   require('express-jwt');
 const _                     =   require('lodash');
@@ -6,8 +5,6 @@ const { OAuth2Client }      =   require('google-auth-library');
 const fetch                 =   require('node-fetch');
 const { validationResult }  =   require('express-validator');
 const jwt                   =   require('jsonwebtoken');
-//custom error handler to get useful error from database errors
-const { errorHandler }      =   require('../helpers/dbErrorHandling');
 const nodemailer            =   require('nodemailer');
 
 let transporter = nodemailer.createTransport({
@@ -33,7 +30,7 @@ exports.registerController = (req, res)=>{
         }).exec((err, user) =>{
             if (user){
                 return res.status(400).json({
-                    error: 'This email is registered before'
+                    message: 'This email is registered before'
                 });
             }
         });
@@ -47,7 +44,7 @@ exports.registerController = (req, res)=>{
             },
             process.env.JWT_ACCOUNT_ACTIVATION,
             {
-                expiresIn: '5m'
+                expiresIn: '15m'
             }
         );
 
@@ -71,7 +68,7 @@ exports.registerController = (req, res)=>{
         transporter.sendMail(emailData, function (err){
             if (err){
                 return res.status (400).json({
-                    error:errorHandler(err)
+                    message:'Internal email error'
                 });
             } else {
                 return res.json({
@@ -89,9 +86,8 @@ exports.activationController = (req, res) =>{
     if (token) {
         jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, (err) => {
             if (err) {
-                console.log('Activation error');
                 return res.status(401).json({
-                    errors: 'Expired link. Signup again'
+                    message: 'Expired link. Signup again'
                 });
             } else {
                 const { name, email, password } = jwt.decode(token);
@@ -105,9 +101,8 @@ exports.activationController = (req, res) =>{
 
                 User.create(user, (err, createUser) =>{
                     if (err) {
-                        console.log('Save error', errorHandler(err));
                         return res.status(401).json({
-                            errors: errorHandler(err)
+                            message: 'User existed'
                         });
                     } else {
                         return res.json({
