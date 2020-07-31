@@ -14,7 +14,7 @@ cloudinary.config({
 const websiteCaptureOptions = {
     width: 320,
     height: 400,
-    type: 'jpg'
+    type: 'jpeg'
 }
 
 
