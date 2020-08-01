@@ -2,7 +2,14 @@ const mongoose = require('mongoose')
 
 // Apps Schema
 const categorySchema = new mongoose.Schema({
-    categories: Array
+    name: {
+        type: String,
+        required: true
+    },
+    value: {
+        type: String,
+        required: true
+    }
 }, {
     timestamps: true
 })
