@@ -1,4 +1,5 @@
 const express = require('express');
+const db
 const router = express.Router();
 
 router.post('/new', (req, res) => {
