@@ -36,8 +36,7 @@ exports.addApp = async (req, res) => {
             url,
             screenshot: uploadResult.secure_url,
             description,
-            category <<
-            << << < HEAD
+            category
         })
         console.log('db result:', dbResult)
         unlink(filePath, () => console.log(filePath, 'deleted'));
@@ -46,22 +45,11 @@ exports.addApp = async (req, res) => {
         console.log(error);
         res.send(error)
     }
-} ===
-=== =
-});
-console.log('db result:', dbResult);
 }
-catch (error) {
-    console.log(error);
-}
-
-}; >>>
->>> > c41f993061918fbe9c24481ae4e64b0087167a4a
 
 exports.getAppByID = (req, res) => {
     App.findById(req.params.id).then(app => {
-        <<
-        << << < HEAD
+
         res.send(app)
     }).catch(err => {
         console.log(err);
@@ -79,16 +67,11 @@ exports.getAllApps = (req, res) => {
 }
 
 exports.getAppsByCategory = (req, res) => {
-        App.find({
-            category: req.params.category
-        }).then(apps => {
-            res.send(apps)
-        }).catch(err => {
-            res.send(err)
-        })
-    } ===
-    === =
-    res.send(app.screenshot);
-});
-}; >>>
->>> > c41f993061918fbe9c24481ae4e64b0087167a4a
+    App.find({
+        category: req.params.category
+    }).then(apps => {
+        res.send(apps)
+    }).catch(err => {
+        res.send(err)
+    })
+}
