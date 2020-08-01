@@ -1,13 +1,10 @@
 const User                  =   require('../models/user');
-const expressJWT            =   require('express-jwt');
 const { OAuth2Client }      =   require('google-auth-library');
 const _                     =   require('lodash');
-const fetch                 =   require('node-fetch');
 const { validationResult }  =   require('express-validator');
 const jwt                   =   require('jsonwebtoken');
 const nodemailer            =   require('nodemailer');
 const bcrypt                =   require('bcrypt');
-const user = require('../models/user');
 const SALT_ROUND            =   10;
 
 let transporter = nodemailer.createTransport({
@@ -58,7 +55,7 @@ exports.registerController = (req, res)=>{
         //Email Data Sending
         const emailData = {
             from: process.env.EMAIL_FROM,
-            to: process.env.EMAIL_TO,
+            to: email,
             subject: 'PinApps Account Activation Link',
             html: `
                 <h1>Please click the link to activate</h1>
@@ -207,7 +204,7 @@ exports.forgetController = (req, res) =>{
             //Email Data Sending
             const emailData = {
                 from: process.env.EMAIL_FROM,
-                to: process.env.EMAIL_TO,
+                to: email,
                 subject: 'PinApps Account Reset Password Link',
                 html: `
                 <h1>Please click the link to reset your password</h1>
@@ -300,7 +297,6 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT);
 
 exports.googleController = (req, res) => {
     const { idToken } = req.body;
-  
     client
         .verifyIdToken({ idToken, audience: process.env.GOOGLE_CLIENT })
         .then(response => {

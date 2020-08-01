@@ -6,11 +6,11 @@ const mongoURI = process.env.MONGODB_URI;
 
 //connect to Mongo
 mongoose.connect(mongoURI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true
-    },
-    () => console.log(`MongoDB connection to ${mongoURI} established`)
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+},
+() => console.log('MongoDB connection established')
 );
 
 //Error or Disconnection 
