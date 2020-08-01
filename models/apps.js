@@ -10,7 +10,7 @@ const appsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    screenshot: Buffer,
+    screenshot: String,
     description: {
         type: String,
         default: ''

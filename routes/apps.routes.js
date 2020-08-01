@@ -1,10 +1,8 @@
 const express = require('express');
-const db
+const appsControllers = require('../controllers/apps.controllers')
 const router = express.Router();
 
-router.post('/new', (req, res) => {
-    const app = req.body;
-
-});
+router.post('/new', appsControllers.addApp);
+router.get('/screenshot/:id', appsControllers.getAppScreenshot)
 
 module.exports = router;

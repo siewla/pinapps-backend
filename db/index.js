@@ -1,12 +1,16 @@
-const mongoose  =   require ('mongoose');
-const db        =   mongoose.connection;
+const mongoose = require('mongoose');
+const db = mongoose.connection;
 
 //Environment Variables
-const mongoURI  =   process.env.MONGODB_URI;
+const mongoURI = process.env.MONGODB_URI;
 
 //connect to Mongo
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true },
-    () => console.log('MongoDB connection Established')    
+mongoose.connect(mongoURI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
+    },
+    () => console.log(`MongoDB connection to ${mongoURI} established`)
 );
 
 //Error or Disconnection 
