@@ -32,7 +32,8 @@ if (process.env.NODE_ENV === 'dev') {
 //Load All routes
 const authRouter = require('./routes/auth.route');
 app.use('/api/', authRouter);
-app.use('/apps/', require('./routes/apps.routes'))
+app.use('/apps/', require('./routes/apps.routes'));
+app.use('/users/', require('./routes/users.routes'));
 // require('./routes')(app);
 
 //This will catch any route that doesn't exist

@@ -1,13 +1,10 @@
 const User                  =   require('../models/user');
-const expressJWT            =   require('express-jwt');
 const { OAuth2Client }      =   require('google-auth-library');
 const _                     =   require('lodash');
-const fetch                 =   require('node-fetch');
 const { validationResult }  =   require('express-validator');
 const jwt                   =   require('jsonwebtoken');
 const nodemailer            =   require('nodemailer');
 const bcrypt                =   require('bcrypt');
-const user = require('../models/user');
 const SALT_ROUND            =   10;
 
 let transporter = nodemailer.createTransport({
