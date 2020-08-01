@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+// Apps Schema
 const appsSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -10,10 +11,20 @@ const appsSchema = new mongoose.Schema({
         required: true
     },
     screenshot: Buffer,
-    description: String,
+    description: {
+        type: String,
+        default: ''
+    },
     category: {
         type: String,
         required: true
     },
-    comments: Array
+    comments: {
+        type: Array,
+        default: []
+    }
+}, {
+    timestamps: true
 })
+
+module.exports = mongoose.model('Apps', appsSchema);
