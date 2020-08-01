@@ -20,3 +20,9 @@ exports.getUserByEmail = (req, res)=>{
         }
     });
 };
+
+exports.getUserByID =(req, res) =>{
+    User.findById(req.params.id).then(user => {
+        res.json(user);
+    });
+};

@@ -4,9 +4,11 @@ const router    =   express.Router();
 //Load Controllers
 const { 
     getAllUsers,
-    getUserByEmail } = require('../controllers/users.controller.js');
+    getUserByEmail,
+    getUserByID } = require('../controllers/users.controller.js');
 
 router.get('/all', getAllUsers);
 router.get('/email/', getUserByEmail);
+router.get('/user/:id', getUserByID);
 
 module.exports = router;
