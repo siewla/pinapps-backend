@@ -1,5 +1,9 @@
 const App = require('../models/apps')
 const captureWebsite = require('capture-website')
+const {
+    unlink
+} = require('fs')
+
 const uploadFolder = 'screenshots/'
 const websiteCaptureOptions = {
     width: 320,
@@ -35,6 +39,7 @@ exports.addApp = async (req, res) => {
             category
         })
         console.log('db result:', dbResult)
+        unlink(filePath);
         res.send(successMessage);
     } catch (error) {
         console.log(error)

@@ -1,5 +1,5 @@
 const appControllers = require('../controllers');
 
-module.exports = (app) =>{
-    app.use('/backend' , appControllers);
+module.exports = (app) => {
+    app.use('/auth', require('./auth.routes'));
 };
