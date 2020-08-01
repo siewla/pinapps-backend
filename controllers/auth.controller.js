@@ -300,9 +300,11 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT);
 
 exports.googleController = (req, res) => {
     const { idToken } = req.body;
+  
     client
         .verifyIdToken({ idToken, audience: process.env.GOOGLE_CLIENT })
         .then(response => {
+        // console.log('GOOGLE LOGIN RESPONSE',response)
             const { email_verified, name, email } = response.payload;
             if (email_verified) {
                 User.findOne({ email }).exec((err, user) => {
@@ -320,6 +322,7 @@ exports.googleController = (req, res) => {
                         user = new User({ name, email, password });
                         user.save((err, data) => {
                             if (err) {
+                                console.log('ERROR GOOGLE LOGIN ON USER SAVE', err);
                                 return res.status(400).json({
                                     error: 'User signup failed with google'
                                 });
@@ -343,4 +346,4 @@ exports.googleController = (req, res) => {
                 });
             }
         });
-};  
+}; 
