@@ -31,10 +31,6 @@ if (process.env.NODE_ENV === 'dev') {
 /*------------Route------------*/
 //Load All routes
 app.use('/api', require('./routes'));
-// app.use('/api/auth', require('./routes/auth.routes'));
-// app.use('/api/apps', require('./routes/apps.routes'));
-// app.use('/api/users', require('./routes/users.routes'));
-// require('./routes')(app);
 
 //This will catch any route that doesn't exist
 app.get('*', (req, res) => {
