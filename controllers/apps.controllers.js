@@ -12,6 +12,7 @@ cloudinary.config({
     api_key: '331716551633671',
     api_secret: process.env.CLOUDINARY_SECRET
 });
+const successMessage = 'Success'
 
 exports.addApp = async (req, res) => {
     console.log('request body:', req.body);
@@ -34,10 +35,10 @@ exports.addApp = async (req, res) => {
             category
         })
         console.log('db result:', dbResult)
+        res.send(successMessage);
     } catch (error) {
         console.log(error)
     }
-
 }
 
 exports.getAppScreenshot = (req, res) => {
