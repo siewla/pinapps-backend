@@ -22,6 +22,10 @@ const appsSchema = new mongoose.Schema({
     comments: {
         type: Array,
         default: []
+    },
+    likes: {
+        type: Array,
+        default: []
     }
 }, {
     timestamps: true
