@@ -39,15 +39,32 @@ exports.addApp = async (req, res) => {
             category
         })
         console.log('db result:', dbResult)
-        unlink(filePath);
+        unlink(filePath, () => console.log(filePath, 'deleted'));
         res.send(successMessage);
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        res.send(error)
     }
 }
 
-exports.getAppScreenshot = (req, res) => {
+exports.getAppByID = (req, res) => {
     App.findById(req.params.id).then(app => {
-        res.send(app.screenshot)
+        res.send(app)
+    }).catch(err => {
+        console.log(err);
+        res.send(err)
     })
+}
+
+exports.getAllApps = (req, res) => {
+    App.find().then(apps => {
+        res.send(apps)
+    }).catch(err => {
+        console.log(err);
+        res.send(err)
+    })
+}
+
+exports.getAppsByCategory = (req, res) => {
+    App.find()
 }
