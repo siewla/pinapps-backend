@@ -1,16 +1,10 @@
-<< << << < HEAD
-const App = require('../models/apps')
-const captureWebsite = require('capture-website')
+const App = require('../models/apps');
+const captureWebsite = require('capture-website');
 const {
     unlink
-} = require('fs')
+} = require('fs');
 
-const uploadFolder = 'screenshots/' ===
-    === =
-    const App = require('../models/apps');
-const captureWebsite = require('capture-website');
-const uploadFolder = 'screenshots/'; >>>
->>> > 339878 eb89abc3c4fb4bb1aa89fcab3f5a09bb5f
+const uploadFolder = 'screenshots/';
 const websiteCaptureOptions = {
     width: 320,
     height: 400,
