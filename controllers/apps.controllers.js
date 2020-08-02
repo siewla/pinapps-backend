@@ -1,4 +1,4 @@
-const App = require('../models/apps');
+const Apps = require('../models/apps');
 const captureWebsite = require('capture-website');
 const {
     unlink
@@ -31,7 +31,7 @@ exports.addApp = async (req, res) => {
         await captureWebsite.file(url, filePath, websiteCaptureOptions);
         const uploadResult = await cloudinary.uploader.upload(filePath);
         console.log('upload result:', uploadResult);
-        const dbResult = await App.create({
+        const dbResult = await Apps.create({
             name,
             url,
             screenshot: uploadResult.secure_url,
@@ -48,7 +48,7 @@ exports.addApp = async (req, res) => {
 };
 
 exports.getAppByID = (req, res) => {
-    App.findById(req.params.id).then(app => {
+    Apps.findById(req.params.id).then(app => {
 
         res.json(app)
     }).catch(err => {
@@ -58,7 +58,8 @@ exports.getAppByID = (req, res) => {
 }
 
 exports.getAllApps = (req, res) => {
-    App.find().then(apps => {
+    Apps.find().limit(100).then(apps => {
+        console.log('get all apps:', apps)
         res.json(apps)
     }).catch(err => {
         console.log(err);
@@ -67,7 +68,7 @@ exports.getAllApps = (req, res) => {
 }
 
 exports.getAppsByCategory = (req, res) => {
-    App.find({
+    Apps.find({
         category: req.params.category
     }).then(apps => {
         res.json(apps)
