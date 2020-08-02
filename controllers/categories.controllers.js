@@ -1,17 +1,18 @@
 const Categories = require('../models/categories');
 
 exports.addCategory = async (req, res) => {
-    console.log('request body:', req.body);
+    console.log('Add Category Request Body:', req.body);
     const {
         name,
+        description
     } = req.body;
-    let filePath = `${uploadFolder + name}.jpg`;
-    try {
 
+    try {
         const dbResult = await Categories.create({
-            name
+            name,
+            description
         })
-        console.log('db result:', dbResult)
+        console.log('Add Category DB Result:', dbResult)
         res.send(successMessage);
     } catch (error) {
         console.log(error);
