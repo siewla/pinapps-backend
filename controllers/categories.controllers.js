@@ -13,27 +13,27 @@ exports.addCategory = async (req, res) => {
             description
         })
         console.log('Add Category DB Result:', dbResult)
-        res.send(successMessage);
+        res.json(successMessage);
     } catch (error) {
         console.log(error);
-        res.send(error)
+        res.json(error)
     }
 };
 
 exports.getCategoryByID = (req, res) => {
     Categories.findById(req.params.id).then(category => {
-        res.send(category)
+        res.json(category)
     }).catch(err => {
         console.log(err);
-        res.send(err)
+        res.json(err)
     })
 }
 
 exports.getAllCategories = (req, res) => {
     App.find().then(categories => {
-        res.send(categories)
+        res.json(categories)
     }).catch(err => {
         console.log(err);
-        res.send(err)
+        res.json(err)
     })
 }

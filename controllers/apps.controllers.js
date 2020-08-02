@@ -40,29 +40,29 @@ exports.addApp = async (req, res) => {
         })
         console.log('db result:', dbResult)
         unlink(filePath, () => console.log(filePath, 'deleted'));
-        res.send(successMessage);
+        res.json(successMessage);
     } catch (error) {
         console.log(error);
-        res.send(error)
+        res.json(error)
     }
 };
 
 exports.getAppByID = (req, res) => {
     App.findById(req.params.id).then(app => {
 
-        res.send(app)
+        res.json(app)
     }).catch(err => {
         console.log(err);
-        res.send(err)
+        res.json(err)
     })
 }
 
 exports.getAllApps = (req, res) => {
     App.find().then(apps => {
-        res.send(apps)
+        res.json(apps)
     }).catch(err => {
         console.log(err);
-        res.send(err)
+        res.json(err)
     })
 }
 
@@ -70,8 +70,8 @@ exports.getAppsByCategory = (req, res) => {
     App.find({
         category: req.params.category
     }).then(apps => {
-        res.send(apps)
+        res.json(apps)
     }).catch(err => {
-        res.send(err)
+        res.json(err)
     })
 }
