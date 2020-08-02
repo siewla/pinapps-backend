@@ -1,11 +1,9 @@
 const express = require('express');
-const appsControllers = require('../controllers/apps.controllers');
+const categoryControllers = require('../controllers/categories.controllers');
 const router = express.Router();
 
-router.post('/new', appsControllers.addApp);
-router.get('/all', appsControllers.getAllApps);
-router.get('/:id', appsControllers.getAppByID);
-router.get('/category/:category', appsControllers.getAppsByCategory)
-
+router.post('/new', categoryControllers.addCategory);
+router.get('/all', categoryControllers.getAllCategories);
+router.get('/:id', categoryControllers.getCategoryByID);
 
 module.exports = router;
