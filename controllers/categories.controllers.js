@@ -30,7 +30,7 @@ exports.getCategoryByID = (req, res) => {
 }
 
 exports.getAllCategories = (req, res) => {
-    App.find().then(categories => {
+    Categories.find().then(categories => {
         res.json(categories)
     }).catch(err => {
         console.log(err);
