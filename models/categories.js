@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 // Apps Schema
 const categorySchema = new mongoose.Schema({
@@ -18,6 +18,6 @@ const categorySchema = new mongoose.Schema({
     }
 }, {
     timestamps: true
-})
+});
 
 module.exports = mongoose.model('Categories', categorySchema);

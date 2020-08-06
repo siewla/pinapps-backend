@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const commentsSchema = new mongoose.Schema({
     comment: {
@@ -12,7 +12,13 @@ const commentsSchema = new mongoose.Schema({
     rating: {
         type: Number,
         default: 0
+    },
+    app: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true,
-})
+});
+
+module.exports = mongoose.model('Comments', commentsSchema);
