@@ -28,3 +28,36 @@ exports.addComment = (req, res) => {
         })
     })
 }
+
+exports.getCommentByID = (req, res) => {
+    Comments.findById(req.params.commentId).then(comment => {
+        res.json(comment)
+    }).catch(err => {
+        console.log(err);
+        res.json(err)
+    })
+}
+
+exports.getAllComments = (req, res) => {
+    Comments.find().limit(100).then(comments => {
+        console.log('get all comments:', comments)
+        res.json(comments)
+    }).catch(err => {
+        console.log(err);
+        res.json(err)
+    })
+}
+
+exports.updateComment = (req, res) => {
+    const comment = req.params.commentId
+    Comments.findByIdAndUpdate(comment, req.body)
+        .then(result => res.json(result.result))
+        .catch(err => res.json(err))
+}
+
+exports.deleteComment = (req, res) => {
+    const comment = req.params.commentId
+    Comments.findByIdAndDelete(comment)
+        .then(result => res.json(result.result))
+        .catch(err => res.json(err))
+}

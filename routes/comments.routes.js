@@ -8,6 +8,5 @@ router.get('/:commentId', commentsControllers.getCommentByID);
 router.get('/category/:category', commentsControllers.getCommentsByCategory);
 router.put('/:commentId', commentsControllers.updateComment);
 router.delete('/:commentId', commentsControllers.deleteComment)
-router.patch('/likes/:commentId', commentsControllers.modifyLikes)
 
 module.exports = router;
