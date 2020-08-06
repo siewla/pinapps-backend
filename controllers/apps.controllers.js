@@ -3,9 +3,6 @@ const captureWebsite = require('capture-website');
 const {
     unlink
 } = require('fs');
-const {
-    default: App
-} = require('../../pinapps-frontend/src/App');
 
 const uploadFolder = 'screenshots/';
 const websiteCaptureOptions = {
