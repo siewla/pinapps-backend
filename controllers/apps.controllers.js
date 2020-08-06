@@ -3,6 +3,9 @@ const captureWebsite = require('capture-website');
 const {
     unlink
 } = require('fs');
+const {
+    default: App
+} = require('../../pinapps-frontend/src/App');
 
 const uploadFolder = 'screenshots/';
 const websiteCaptureOptions = {
@@ -48,7 +51,7 @@ exports.addApp = async (req, res) => {
 };
 
 exports.getAppByID = (req, res) => {
-    Apps.findById(req.params.id).then(app => {
+    Apps.findById(req.params.appId).then(app => {
 
         res.json(app)
     }).catch(err => {
@@ -75,4 +78,28 @@ exports.getAppsByCategory = (req, res) => {
     }).catch(err => {
         res.json(err)
     })
+}
+
+exports.updateApp = (req, res) => {
+    const app = req.params.appId
+    Apps.findByIdAndUpdate(app, req.body)
+        .then(result => res.json(result.result))
+        .catch(err => res.json(err))
+}
+
+exports.deleteApp = (req, res) => {
+    const app = req.params.appId
+    Apps.findByIdAndDelete(app)
+        .then(result => res.json(result.result))
+        .catch(err => res.json(err))
+}
+
+exports.modifyLikes = async (req, res) => {
+    const appId = req.params.appId;
+    const likes = req.body.likes;
+    Apps.findByIdAndUpdate(appId, {
+            likes
+        })
+        .then(result => res.json(result.result))
+        .catch(err => res.json(err))
 }
