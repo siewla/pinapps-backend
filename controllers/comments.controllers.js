@@ -15,18 +15,20 @@ const Users = require('../models/user')
 exports.addComment = (req, res) => {
     const comment = req.body;
     Comments.create(comment).then(result => {
-        const commentId = result.id;
-        Apps.findByIdAndUpdate(comment.app, {
-            $push: {
-                comments: commentId
-            }
-        });
-        Users.findByIdAndUpdate(comment.author, {
-            $push: {
-                comments: commentId
-            }
+            const commentId = result.id;
+            Apps.findByIdAndUpdate(comment.app, {
+                $push: {
+                    comments: commentId
+                }
+            });
+            Users.findByIdAndUpdate(comment.author, {
+                $push: {
+                    comments: commentId
+                }
+            })
         })
-    })
+        .then(result => res.json(result))
+        .catch(err => res.json(err))
 }
 
 exports.getCommentByID = (req, res) => {
