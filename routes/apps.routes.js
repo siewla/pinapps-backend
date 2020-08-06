@@ -4,13 +4,10 @@ const router = express.Router();
 
 router.post('/new', appsControllers.addApp);
 router.get('/all', appsControllers.getAllApps);
-router.get('/:id', appsControllers.getAppByID);
-router.get('/category/:category', appsControllers.getAppsByCategory)
-// Update App
-// Delete App
-// Get Liked By
-// update app for likes
-
-
+router.get('/:appId', appsControllers.getAppByID);
+router.get('/category/:category', appsControllers.getAppsByCategory);
+router.put('/:appId', appsControllers.updateApp);
+router.delete('/:appId', appsControllers.deleteApp)
+router.patch('/likes/:appId', appsControllers.modifyLikes)
 
 module.exports = router;
