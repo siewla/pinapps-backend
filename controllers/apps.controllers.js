@@ -10,7 +10,7 @@ const websiteCaptureOptions = {
     height: 400,
     type: 'jpeg',
     launchOptions: {
-        args: [--no - sandbox]
+        args: ['--no-sandbox']
     }
 };
 const cloudinary = require('cloudinary').v2;
