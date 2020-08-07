@@ -40,8 +40,10 @@ exports.getCommentByID = (req, res) => {
     })
 }
 
-exports.getAllComments = (req, res) => {
-    Comments.find().limit(100).then(comments => {
+exports.getAllCommentsByAppId = (req, res) => {
+    Comments.find({
+        app: req.body.appId
+    }).limit(100).then(comments => {
         console.log('get all comments:', comments)
         res.json(comments)
     }).catch(err => {
