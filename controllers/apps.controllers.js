@@ -8,7 +8,10 @@ const uploadFolder = 'screenshots/';
 const websiteCaptureOptions = {
     width: 320,
     height: 400,
-    type: 'jpeg'
+    type: 'jpeg',
+    launchOptions: {
+        args: [--no - sandbox]
+    }
 };
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
