@@ -28,7 +28,10 @@ exports.addApp = async (req, res) => {
     } = req.body;
     let filePath = `${uploadFolder + name}.jpg`;
     try {
-        await captureWebsite.file(url, filePath, websiteCaptureOptions);
+        console.log("capturing website")
+        const websiteCaptureResult = await captureWebsite.file(url, filePath, websiteCaptureOptions);
+        console.log('website screenshot result:', websiteCaptureResult)
+        console.log('uploading screenshot')
         const uploadResult = await cloudinary.uploader.upload(filePath);
         console.log('upload result:', uploadResult);
         const dbResult = await Apps.create({
