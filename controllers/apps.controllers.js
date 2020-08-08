@@ -8,7 +8,10 @@ const uploadFolder = 'screenshots/';
 const websiteCaptureOptions = {
     width: 320,
     height: 400,
-    type: 'jpeg'
+    type: 'jpeg',
+    launchOptions: {
+        args: ['--no-sandbox']
+    }
 };
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
@@ -24,11 +27,15 @@ exports.addApp = async (req, res) => {
         name,
         url,
         description,
-        category
+        category,
+        userId
     } = req.body;
     let filePath = `${uploadFolder + name}.jpg`;
     try {
-        await captureWebsite.file(url, filePath, websiteCaptureOptions);
+        console.log("capturing website")
+        const websiteCaptureResult = await captureWebsite.file(url, filePath, websiteCaptureOptions);
+        console.log('website screenshot result:', websiteCaptureResult)
+        console.log('uploading screenshot')
         const uploadResult = await cloudinary.uploader.upload(filePath);
         console.log('upload result:', uploadResult);
         const dbResult = await Apps.create({
@@ -36,7 +43,8 @@ exports.addApp = async (req, res) => {
             url,
             screenshot: uploadResult.secure_url,
             description,
-            category
+            category,
+            likes: [userId]
         })
         console.log('db result:', dbResult)
         unlink(filePath, () => console.log(filePath, 'deleted'));
