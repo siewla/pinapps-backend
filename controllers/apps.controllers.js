@@ -27,7 +27,8 @@ exports.addApp = async (req, res) => {
         name,
         url,
         description,
-        category
+        category,
+        userId
     } = req.body;
     let filePath = `${uploadFolder + name}.jpg`;
     try {
@@ -42,7 +43,8 @@ exports.addApp = async (req, res) => {
             url,
             screenshot: uploadResult.secure_url,
             description,
-            category
+            category,
+            likes: [userId]
         })
         console.log('db result:', dbResult)
         unlink(filePath, () => console.log(filePath, 'deleted'));
