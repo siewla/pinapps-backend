@@ -15,6 +15,7 @@ const ObjectId = require('mongoose').Types.ObjectId
  */
 exports.addComment = (req, res) => {
     const comment = req.body;
+    console.log('comment:', comment)
     Comments.create(comment).then(result => {
             const commentId = result.id;
             Apps.findByIdAndUpdate(comment.app, {
