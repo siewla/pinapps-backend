@@ -1,6 +1,7 @@
 const Comments = require('../models/comments');
 const Apps = require('../models/apps');
 const Users = require('../models/user')
+const ObjectId = require('mongoose').Types.ObjectId
 
 /**
  * Requires a payload in the request body of: {
@@ -42,7 +43,19 @@ exports.getCommentByID = (req, res) => {
 
 exports.getAllCommentsByAppId = (req, res) => {
     Comments.find({
-        app: req.body.appId
+        app: ObjectId(req.params.appId)
+    }).limit(100).then(comments => {
+        console.log('get all comments:', comments)
+        res.json(comments)
+    }).catch(err => {
+        console.log(err);
+        res.json(err)
+    })
+}
+
+xports.getAllCommentsByUserId = (req, res) => {
+    Comments.find({
+        app: ObjectId(req.params.userId)
     }).limit(100).then(comments => {
         console.log('get all comments:', comments)
         res.json(comments)
