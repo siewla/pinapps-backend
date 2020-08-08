@@ -53,7 +53,7 @@ exports.getAllCommentsByAppId = (req, res) => {
     })
 }
 
-xports.getAllCommentsByUserId = (req, res) => {
+exports.getAllCommentsByUserId = (req, res) => {
     Comments.find({
         app: ObjectId(req.params.userId)
     }).limit(100).then(comments => {
