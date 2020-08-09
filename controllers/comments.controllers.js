@@ -15,7 +15,7 @@ const ObjectId = require('mongoose').Types.ObjectId
  */
 exports.addComment = (req, res) => {
     const comment = req.body;
-    console.log('comment:', comment)
+    // console.log('comment:', comment)
     Comments.create(comment).then(result => {
             const commentId = result.id;
             Apps.findByIdAndUpdate(comment.app, {
@@ -30,11 +30,11 @@ exports.addComment = (req, res) => {
             })
         })
         .then(result => {
-            console.log(result);
+            // console.log(result);
             res.json(result)
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             res.json(err);
         })
 }
@@ -43,7 +43,7 @@ exports.getCommentByID = (req, res) => {
     Comments.findById(req.params.commentId).then(comment => {
         res.json(comment)
     }).catch(err => {
-        console.log(err);
+        // console.log(err);
         res.json(err)
     })
 }
@@ -52,10 +52,10 @@ exports.getAllCommentsByAppId = (req, res) => {
     Comments.find({
         app: ObjectId(req.params.appId)
     }).limit(100).then(comments => {
-        console.log('get all comments:', comments)
+        // console.log('get all comments:', comments)
         res.json(comments)
     }).catch(err => {
-        console.log(err);
+        // console.log(err);
         res.json(err)
     })
 }
@@ -64,10 +64,10 @@ exports.getAllCommentsByUserId = (req, res) => {
     Comments.find({
         app: ObjectId(req.params.userId)
     }).limit(100).then(comments => {
-        console.log('get all comments:', comments)
+        // console.log('get all comments:', comments)
         res.json(comments)
     }).catch(err => {
-        console.log(err);
+        // console.log(err);
         res.json(err)
     })
 }

@@ -18,8 +18,8 @@ const websiteCaptureOptions = {
 }
 
 
-screenshots.base64(captureURL, websiteCaptureOptions).then((result) => console.log(result)).catch(err => console.log(err)) //.then(
-//     (file) => {
-//         cloudinary.uploader.upload(file).catch(err => console.log(err));
-//     }
-// ).catch(err => console.log(err))
+screenshots.base64(captureURL, websiteCaptureOptions).then((result) => // console.log(result)).catch(err => // console.log(err)) //.then(
+        //     (file) => {
+        //         cloudinary.uploader.upload(file).catch(err => // console.log(err));
+        //     }
+        // ).catch(err => // console.log(err))

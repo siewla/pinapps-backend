@@ -22,7 +22,7 @@ cloudinary.config({
 const successMessage = 'Success';
 
 exports.addApp = async (req, res) => {
-    console.log('request body:', req.body);
+    // console.log('request body:', req.body);
     const {
         name,
         url,
@@ -32,12 +32,12 @@ exports.addApp = async (req, res) => {
     } = req.body;
     let filePath = `${uploadFolder + name}.jpg`;
     try {
-        console.log("capturing website")
+        // console.log("capturing website")
         const websiteCaptureResult = await captureWebsite.file(url, filePath, websiteCaptureOptions);
-        console.log('website screenshot result:', websiteCaptureResult)
-        console.log('uploading screenshot')
+        // console.log('website screenshot result:', websiteCaptureResult)
+        // console.log('uploading screenshot')
         const uploadResult = await cloudinary.uploader.upload(filePath);
-        console.log('upload result:', uploadResult);
+        // console.log('upload result:', uploadResult);
         const dbResult = await Apps.create({
             name,
             url,
@@ -46,11 +46,11 @@ exports.addApp = async (req, res) => {
             category,
             likes: [userId]
         })
-        console.log('db result:', dbResult)
+        // console.log('db result:', dbResult)
         unlink(filePath, () => console.log(filePath, 'deleted'));
         res.json(successMessage);
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         res.json(error)
     }
 };
@@ -60,17 +60,17 @@ exports.getAppByID = (req, res) => {
 
         res.json(app)
     }).catch(err => {
-        console.log(err);
+        // console.log(err);
         res.json(err)
     })
 }
 
 exports.getAllApps = (req, res) => {
     Apps.find().limit(100).then(apps => {
-        console.log('get all apps:', apps)
+        // console.log('get all apps:', apps)
         res.json(apps)
     }).catch(err => {
-        console.log(err);
+        // console.log(err);
         res.json(err)
     })
 }
@@ -112,7 +112,7 @@ exports.likeApp = async (req, res) => {
 
 exports.unlikeApp = async (req, res) => {
     const appId = req.params.appId;
-    console.log('request Body:', req.body)
+    // console.log('request Body:', req.body)
     Apps.findByIdAndUpdate(appId, {
             $pull: {
                 likes: req.body.userId
