@@ -1,14 +1,17 @@
-const express   =   require('express');
-const router    =   express.Router();
+const express = require('express');
+const router = express.Router();
 
 //Load Controllers
-const { 
+const {
     getAllUsers,
     getUserByEmail,
-    getUserByID } = require('../controllers/users.controller.js');
+    getUserByID,
+    getLikedApps
+} = require('../controllers/users.controller.js');
 
 router.get('/all', getAllUsers);
 router.get('/email/', getUserByEmail);
 router.get('/user/:id', getUserByID);
+router.get('/liked-apps/:userId', getLikedApps)
 
 module.exports = router;
