@@ -112,8 +112,9 @@ exports.likeApp = async (req, res) => {
 
 exports.unlikeApp = async (req, res) => {
     const appId = req.params.appId;
+    console.log('request Body:', req.body)
     Apps.findByIdAndUpdate(appId, {
-            $pop: {
+            $pull: {
                 likes: req.body.userId
             }
         })
