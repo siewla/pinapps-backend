@@ -195,7 +195,7 @@ exports.forgetController = (req, res) => {
     const {
         email
     } = req.body;
-    // // console.log(password);
+    // console.log(password);
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
