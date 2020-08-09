@@ -8,6 +8,7 @@ router.get('/:appId', appsControllers.getAppByID);
 router.get('/category/:category', appsControllers.getAppsByCategory);
 router.put('/:appId', appsControllers.updateApp);
 router.delete('/:appId', appsControllers.deleteApp)
-router.patch('/likes/:appId', appsControllers.modifyLikes)
+router.patch('/like/:appId', appsControllers.likeApp)
+router.patch('/unlike/:appId', appsControllers.unlikeApp)
 
 module.exports = router;

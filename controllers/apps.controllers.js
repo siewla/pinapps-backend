@@ -99,11 +99,23 @@ exports.deleteApp = (req, res) => {
         .catch(err => res.json(err))
 }
 
-exports.modifyLikes = async (req, res) => {
+exports.likeApp = async (req, res) => {
     const appId = req.params.appId;
-    const likes = req.body.likes;
     Apps.findByIdAndUpdate(appId, {
-            likes
+            $push: {
+                likes: req.body.userId
+            }
+        })
+        .then(result => res.json(result.result))
+        .catch(err => res.json(err))
+}
+
+exports.unlikeApp = async (req, res) => {
+    const appId = req.params.appId;
+    Apps.findByIdAndUpdate(appId, {
+            $pop: {
+                likes: req.body.userId
+            }
         })
         .then(result => res.json(result.result))
         .catch(err => res.json(err))
