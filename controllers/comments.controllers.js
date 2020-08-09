@@ -29,8 +29,14 @@ exports.addComment = (req, res) => {
                 }
             })
         })
-        .then(result => res.json(result))
-        .catch(err => res.json(err))
+        .then(result => {
+            console.log(result);
+            res.json(result)
+        })
+        .catch(err => {
+            console.log(err);
+            res.json(err);
+        })
 }
 
 exports.getCommentByID = (req, res) => {
