@@ -1,6 +1,9 @@
 const Comments = require('../models/comments');
 const Apps = require('../models/apps');
-const Users = require('../models/user')
+const Users = require('../models/user');
+const {
+    json
+} = require('express');
 const ObjectId = require('mongoose').Types.ObjectId
 
 /**
@@ -84,4 +87,19 @@ exports.deleteComment = (req, res) => {
     Comments.findByIdAndDelete(comment)
         .then(result => res.json(result.result))
         .catch(err => res.json(err))
+}
+
+/**
+ * Accepts keyword in request body. Returns array of comments.
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.searchCommentByKeyword = (req, res) => {
+    const keyword = req.body.keyword;
+    const searchRegExp = new RegExp(keyword, 'gi')
+    Comments.find({
+        comment: {
+            $regex: searchRegExp
+        }
+    }).then(result => res.json(result))
 }
